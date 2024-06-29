@@ -125,22 +125,22 @@ export default function Footer() {
                     </div>
                 </div>
             }
-            <div className='h-[70px] w-full fixed bottom-0 '>
+            <div className='h-[70px] w-full fixed bottom-[-10px] '>
                 <div className='flex  justify-center w-[100%] '>
                     <div className='bg-[#000000] border  flex gap-[50px] items-center justify-center px-[20px] py-2 rounded-[40px] '>
-                        <div className='w-7 h-7'>
+                        <div className='w-10 h-8'>
                             <Link to='/'>
-                                <img className='w-7 h-7' src={homeImg} alt='homeImg' />
+                                <img className='w-8 h-8' src={homeImg} alt='homeImg' />
                             </Link>
                         </div>
-                        <div className='w-7 h-7'>
+                        <div className='w-10 h-8'>
                             <button onClick={() => handleOpenModal('1')}>
-                                <img className='w-7 h-7' src={addImg} alt='profileImg' />
+                                <img className='w-8 h-8' src={addImg} alt='profileImg' />
                             </button>
                         </div>
-                        <div className='w-7 h-7'>
+                        <div className='w-10 h-8'>
                             <Link to='/profile'>
-                                <img className='w-7 h-7' src={profileImg} alt='profileImg' />
+                                <img className='w-8 h-8' src={profileImg} alt='profileImg' />
                             </Link>
                         </div>
                     </div>
