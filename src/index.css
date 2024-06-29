@@ -10,3 +10,11 @@
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
 }
+
+input:focus {
+  outline: none;
+}
+
+input {
+  outline: none;
+}
