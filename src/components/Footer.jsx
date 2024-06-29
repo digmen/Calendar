@@ -31,8 +31,8 @@ export default function Footer() {
     return (
         <>
             {modal &&
-                <div className='h-[100%] w-full  absolute top-0'>
-                    <div className='p-5 w-[330px] h-[500px] mt-[50px] mx-auto bg-white shadow-addModal rounded-2xl'>
+                <div className='h-[100%] w-full  absolute top-[-10px]'>
+                    <div className='p-5 w-[330px] h-[400px] mt-[50px] mx-auto bg-white border rounded-2xl'>
                         <div className='flex justify-end'>
                             <button onClick={() => setModal(false)} className='border-black rounded-full border-[2px]'>
                                 <img className='w-[35px] h-[35px]' src={closeImg} alt='closeImg' />
@@ -42,17 +42,86 @@ export default function Footer() {
                             <span >Вещь</span>
                             <span >Сумма</span>
                         </div>
-                        <div className='mt-3'>
-                            <form className='flex gap-4'>
-                                <input placeholder='Текст' className='max-w-[180px] border-black rounded-lg border-[1px] p-1 pl-3' />
-                                <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
-                            </form>
-                        </div>
-                        <div className='flex justify-center mt-5'>
-                            <button className='bg-black text-white px-4 py-2 rounded-2xl'>Добавить +</button>
-                        </div>
+                        <div>
+                            <div className='mt-3'>
+                                <form className='flex flex-col gap-4 h-[200px] overflow-auto'>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
+                                    <div className='flex justify-between gap-4'>
+                                        <input placeholder='Текст' className='max-w-[200px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                        <input placeholder='Текст' className='max-w-[65px] border-black rounded-lg border-[1px] p-1 pl-3' />
+                                    </div>
 
-                        <button></button>
+                                </form>
+                            </div>
+                            <div className='flex justify-center mt-5'>
+                                <button className='bg-black text-white px-4 py-2 rounded-2xl'>Добавить +</button>
+                            </div>
+
+                            <button></button>
+                        </div>
                     </div>
                 </div>
             }
