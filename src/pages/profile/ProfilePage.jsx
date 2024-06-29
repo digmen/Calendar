@@ -50,7 +50,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
                 :
-                <div className='flex h-[100vh]'>
+                <div className='flex mt-[250px]'>
                     <div className='flex-auto flex justify-center items-center flex-col gap-4'>
                         <h1>Вы не вошли :)</h1>
                         <Link to='/login' className='px-4 py-3 bg-black text-white font-[18px] rounded-2xl'>Войти</Link>
