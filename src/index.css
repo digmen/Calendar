@@ -9,6 +9,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
+  /* -ms-overflow-style: none;
+  scrollbar-width: none; */
 }
 
 input:focus {
@@ -21,11 +23,11 @@ input {
 
 html {
   touch-action: manipulation;
-  /* Отключает масштабирование на сенсорных устройствах */
   -ms-touch-action: manipulation;
-  /* Для IE 10 и более поздних версий */
   zoom: 1;
-  /* Устанавливает начальное значение масштаба на 1 (для IE) */
   -ms-content-zooming: none;
-  /* Отключает масштабирование на сенсорных устройствах в IE */
 }
+
+/* ::-webkit-scrollbar {
+  display: none;
+} */

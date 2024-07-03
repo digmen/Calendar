@@ -80,7 +80,6 @@ export default function SignUp() {
                 });
 
                 successSignUp(userId)
-                console.log('Регистрация прошла');
             }
         } catch (error) {
             console.error('Error registering user:', error.message);

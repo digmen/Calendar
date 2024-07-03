@@ -37,7 +37,6 @@ export default function SignIn() {
 
       if (querySnapshot.empty) {
         throw new Error("User not found");
-        console.log(1);
       }
 
       // Получение данных пользователя
@@ -52,7 +51,6 @@ export default function SignIn() {
       }
 
       successSignUp(userData.userId);
-      console.log('Регистрация прошла');
     } catch (error) {
       console.error('Error logging in user:', error.message);
     }
