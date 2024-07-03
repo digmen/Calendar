@@ -144,11 +144,11 @@ export default function HomePage() {
                         <Bar data={chartData} options={options} width={400} height={400} />
                     </div>
                 </div>
-                <div className='flex flex-col m-2 mb-[70px] overflow-scroll'>
+                <div className='flex flex-col m-2 mb-[70px]'>
                     {items.length > 0 ? (
                         <>
                             {Object.keys(groupedItems).map(dateKey => (
-                                <div key={dateKey} className='flex flex-col overflow-scroll'>
+                                <div key={dateKey} className='flex flex-col'>
                                     <span className='text-center bold'>
                                         {dateKey}
                                     </span>
