@@ -80,7 +80,7 @@ export default function Footer() {
         <>
             {modal &&
                 <div className='h-full w-full  bg-[#00000099] absolute top-[0px]'>
-                    <div className='p-3 w-[330px] h-[450px] mt-[50px] mx-auto bg-white border-[2px] border-[#313131] rounded-xl'>
+                    <div className='p-3 w-[330px] h-[450px] mt-[20px] mx-auto bg-white border-[2px] border-[#313131] rounded-xl'>
                         <div className='flex justify-end'>
                             <button onClick={() => setModal(false)}>
                                 <img className='w-[35px] h-[35px]' src={closeImg} alt='closeImg' />
