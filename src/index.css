@@ -11,6 +11,7 @@
   font-family: "Manrope", sans-serif;
   /* -ms-overflow-style: none;
   scrollbar-width: none; */
+  scroll-behavior: smooth;
 }
 
 input:focus {
@@ -28,6 +29,7 @@ html {
   -ms-content-zooming: none;
 }
 
-/* ::-webkit-scrollbar {
-  display: none;
-} */
+::-webkit-scrollbar {
+  width: 0.001px;
+  height: 0.001px;
+}

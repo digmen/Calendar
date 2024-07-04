@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import homeImg from '../assets/image/home.svg';
@@ -18,6 +18,8 @@ export default function Footer() {
     const [message, setMessage] = useState('');
     const userID = localStorage.getItem('id');
 
+    const lastInputRef = useRef(null);
+
     const handleOpenModal = (value) => {
         console.log(value);
         if (location.pathname !== '/') {
@@ -30,6 +32,12 @@ export default function Footer() {
     const handleAddInput = () => {
         setInputs([...inputs, { thing: '', amount: '' }]);
     };
+
+    useEffect(() => {
+        if (lastInputRef.current) {
+            lastInputRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [inputs]);
 
     const handleRemoveInput = (index) => {
         const newInputs = inputs.slice();
@@ -100,7 +108,7 @@ export default function Footer() {
                                 <img className='w-[35px] h-[35px]' src={closeImg} alt='closeImg' />
                             </button>
                         </div>
-                        <div className='flex justify-between mt-2'>
+                        <div className='flex justify-between'>
                             <span>Вещь</span>
                             <span>Сумма</span>
                         </div>
@@ -113,14 +121,15 @@ export default function Footer() {
                                                 name='thing'
                                                 value={input.thing}
                                                 onChange={(e) => handleInputChange(index, e)}
-                                                placeholder='Текст'
+                                                placeholder='Вещь'
                                                 className='flex max-w-[200px] border-gray-400 rounded-lg border-[1px] p-1 pl-2 transition shadow-inner focus:bg-black ease-in-out duration-500 focus:text-white focus:duration-500 focus:transition'
+                                                ref={index === inputs.length - 1 ? lastInputRef : null}
                                             />
                                             <input
                                                 name='amount'
                                                 value={input.amount}
                                                 onChange={(e) => handleInputChange(index, e)}
-                                                placeholder='Текст'
+                                                placeholder='СОМ'
                                                 className='max-w-[80px] border-gray-400 rounded-lg border-[1px] p-1 pl-2 transition shadow-inner focus:bg-black ease-in-out duration-500 focus:text-white focus:duration-500 focus:transition'
                                             />
                                             <button type='button' onClick={() => handleRemoveInput(index)} className='text-red-600 text-2xl'>
@@ -131,7 +140,7 @@ export default function Footer() {
                                     <button
                                         type='button'
                                         onClick={handleAddInput}
-                                        className='bg-black text-white px-4 py-2 rounded-2xl active:bg-white active:text-black active:transition ease-in-out transition focus:duration-1000 duration-1000'
+                                        className='bg-black text-white px-4 py-2 rounded-2xl'
                                     >
                                         Добавить еще поле +
                                     </button>
