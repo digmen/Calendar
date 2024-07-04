@@ -80,34 +80,42 @@ export default function HomePage() {
         return () => unsubscribe();
     }, [userID]);
 
-    // Group items by date
-    const groupedItems = items.reduce((acc, item) => {
-        const dateKey = `${item.dateTime.day}-${item.dateTime.month}-${item.dateTime.year}`;
-        if (!acc[dateKey]) {
-            acc[dateKey] = [];
-        }
-        acc[dateKey].push(item);
-        return acc;
-    }, {});
+    useEffect(() => {
+        // Calculate expenses by day of the week
+        const expensesByDay = [0, 0, 0, 0, 0, 0, 0]; // Initialize array for each day of the week
 
-    // Prepare data for chart
-    const chartData = {
+        items.forEach(item => {
+            // Calculate total expense for the item
+            const totalExpense = item.items.reduce((acc, thing) => acc + Number(thing.amount), 0);
+
+            // Get day of the week (0-6, where 0 is Sunday)
+            const dayOfWeek = new Date(item.dateTime.year, item.dateTime.month - 1, item.dateTime.day).getDay();
+
+            // Add total expense to the corresponding day in the array
+            expensesByDay[(dayOfWeek + 6) % 7] += totalExpense; // Adjusting so 0 (Sunday) maps to the last index
+        });
+
+        // Update chart data
+        setChartData(prevChartData => ({
+            ...prevChartData,
+            datasets: [{
+                ...prevChartData.datasets[0],
+                data: expensesByDay,
+            }]
+        }));
+    }, [items]);
+
+    const [chartData, setChartData] = useState({
         labels: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
         datasets: [
             {
-                data: [0, 0, 0, 0, 0, 0, 0], // Initialize with zeros for each day of the week
+                label: 'Расходы',
                 backgroundColor: '#FFFFFF',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderRadius: 10,
+                data: [0, 0, 0, 0, 0, 0, 0], // Initialize with zeros for each day of the week
             },
         ],
-    };
-
-    // Populate chart data with grouped items
-    Object.keys(groupedItems).forEach(dateKey => {
-        const dayOfWeek = new Date(groupedItems[dateKey][0].dateTime.year, groupedItems[dateKey][0].dateTime.month - 1, groupedItems[dateKey][0].dateTime.day).getDay();
-        const dataIndex = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-        chartData.datasets[0].data[dataIndex] += groupedItems[dateKey].length;
     });
 
     const options = {
@@ -135,6 +143,22 @@ export default function HomePage() {
         },
     };
 
+    const groupedItems = items.reduce((acc, item) => {
+        const dateKey = `${item.dateTime.day}-${item.dateTime.month}-${item.dateTime.year}`;
+        if (!acc[dateKey]) {
+            acc[dateKey] = { date: dateKey, totalAmount: 0, items: [] };
+        }
+        const totalAmountForItem = item.items.reduce((sum, thing) => sum + Number(thing.amount), 0);
+        acc[dateKey].totalAmount += totalAmountForItem;
+        acc[dateKey].items.push(...item.items);
+        return acc;
+    }, {});
+
+    const sortedGroupedItems = Object.values(groupedItems).sort((a, b) => {
+        const [dayA, monthA, yearA] = a.date.split('-').map(Number);
+        const [dayB, monthB, yearB] = b.date.split('-').map(Number);
+        return new Date(yearA, monthA - 1, dayA) - new Date(yearB, monthB - 1, dayB);
+    });
 
     return (
         <>
@@ -145,29 +169,25 @@ export default function HomePage() {
                     </div>
                 </div>
                 <div className='flex flex-col m-2 mb-[70px]'>
-                    {items.length > 0 ? (
+                    {sortedGroupedItems.length > 0 ? (
                         <>
-                            {Object.keys(groupedItems).map(dateKey => (
-                                <div key={dateKey} className='flex flex-col'>
-                                    <span className='text-center bold'>
-                                        {dateKey}
-                                    </span>
+                            {sortedGroupedItems.map(item => (
+                                <div key={item.date} className='flex flex-col'>
+                                    <span className='text-center bold'>{item.date}</span>
                                     <div>
                                         <div className='flex justify-between border-b-2'>
-                                            <span>Прдемет</span>
+                                            <span>Продукт</span>
                                             <span>Сумма</span>
                                         </div>
-                                        <div className='overflow-scroll h-[270px]'>
-                                            {groupedItems[dateKey].map(item => (
-                                                <div key={item.id}>
-                                                    {item.items.map((thing, index) => (
-                                                        <div className='flex justify-between' key={index}>
-                                                            <span className='text-lg'>{thing.thing}</span>
-                                                            <span className='font-medium text-sm'>- {thing.amount} СОМ</span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            ))}
+                                        {item.items.map((thing, index) => (
+                                            <div key={index} className='flex justify-between'>
+                                                <span className='text-lg'>{thing.thing}</span>
+                                                <span className='font-medium text-sm'>- {thing.amount} СОМ</span>
+                                            </div>
+                                        ))}
+                                        <div className='flex justify-between border-t-2 mt-2'>
+                                            <span className='text-lg'>Итого:</span>
+                                            <span className='font-medium text-sm'>- {item.totalAmount} СОМ</span>
                                         </div>
                                     </div>
                                 </div>

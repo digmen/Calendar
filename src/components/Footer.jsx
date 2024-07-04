@@ -38,6 +38,7 @@ export default function Footer() {
         console.log(newInputs);
     };
 
+
     const handleSubmit = async () => {
         try {
             const hasEmptyFields = inputs.some(input => !input.thing || !input.amount);
@@ -48,11 +49,15 @@ export default function Footer() {
             }
 
             const currentDate = new Date();
+            const daysOfWeek = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+            const dayOfWeek = daysOfWeek[currentDate.getDay()];
+
             const dateTime = {
                 year: currentDate.getFullYear(),
                 month: currentDate.getMonth() + 1, // месяцы начинаются с 0
                 day: currentDate.getDate(),
                 hours: currentDate.getHours(),
+                dayOfWeek: dayOfWeek,
             };
 
             const itemsRef = ref(realtimeDb, 'items');
