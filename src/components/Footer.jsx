@@ -82,7 +82,7 @@ export default function Footer() {
 
                 <div className='h-full w-full  bg-[#00000099] absolute top-[0px]'>
                     {message ?
-                        <div className='min-h-[10px] w-[330px] mx-auto m-1  bg-white border-[1px] p-1 border-black rounded-xl'>
+                        <div className='min-h-[10px] w-[330px] mx-auto m-1  bg-white border-[1px] px-1 border-black rounded-xl'>
                             <span className='text-[12px] text-red-600'>{message}</span>
                         </div>
                         :
@@ -94,7 +94,7 @@ export default function Footer() {
                                 <img className='w-[35px] h-[35px]' src={closeImg} alt='closeImg' />
                             </button>
                         </div>
-                        <div className='flex justify-between mt-4'>
+                        <div className='flex justify-between mt-2'>
                             <span >Вещь</span>
                             <span >Сумма</span>
                         </div>
@@ -128,7 +128,7 @@ export default function Footer() {
                                     </button>
                                 </form>
                             </div>
-                            <div className='flex justify-end mt-5'>
+                            <div className='flex justify-end mt-3'>
                                 <button
                                     type='button'
                                     onClick={handleSubmit}
