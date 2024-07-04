@@ -81,13 +81,15 @@ export default function Footer() {
             {modal &&
 
                 <div className='h-full w-full  bg-[#00000099] absolute top-[0px]'>
-                    {message ?
-                        <div className='min-h-[10px] w-[330px] mx-auto m-1  bg-white border-[1px] px-1 border-black rounded-xl'>
-                            <span className='text-[12px] text-red-600'>{message}</span>
-                        </div>
-                        :
-                        ''
-                    }
+                    <div className='min-h-[30px] w-[330px]  mx-auto m-1 py-1'>
+                        {message ?
+                            <div className='flex justify-center bg-white border-[1px]  border-black rounded-md'>
+                                <span className='text-[12px] text-red-600'>{message}</span>
+                            </div>
+                            :
+                            ''
+                        }
+                    </div>
                     <div className='p-3 w-[330px] h-[450px] mx-auto bg-white border-[2px] border-[#313131] rounded-xl'>
                         <div className='flex justify-end'>
                             <button onClick={() => setModal(false)}>
