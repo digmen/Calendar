@@ -79,7 +79,15 @@ export default function Footer() {
     return (
         <>
             {modal &&
+
                 <div className='h-full w-full  bg-[#00000099] absolute top-[0px]'>
+                    {message ?
+                        <div className='min-h-[10px] w-[330px] mx-auto m-1 text-red-600 bg-white border-[2px] p-3 border-black rounded-xl'>
+                            {<span>{message}</span>}
+                        </div>
+                        :
+                        ''
+                    }
                     <div className='p-3 w-[330px] h-[450px] mt-[20px] mx-auto bg-white border-[2px] border-[#313131] rounded-xl'>
                         <div className='flex justify-end'>
                             <button onClick={() => setModal(false)}>
@@ -131,13 +139,6 @@ export default function Footer() {
                             </div>
                         </div>
                     </div>
-                    {message ?
-                        <div className='min-h-[50px] w-[330px] mx-auto mt-5 text-red-600 bg-white border-[2px] p-3 border-black rounded-xl'>
-                            {<span>{message}</span>}
-                        </div>
-                        :
-                        ''
-                    }
                 </div>
             }
             <div className='h-[70px] w-full fixed bottom-[-10px]'>
