@@ -82,8 +82,8 @@ export default function Footer() {
 
                 <div className='h-full w-full  bg-[#00000099] absolute top-[0px]'>
                     {message ?
-                        <div className='min-h-[10px] w-[330px] mx-auto m-1 text-red-600 bg-white border-[2px] p-3 border-black rounded-xl'>
-                            {<span>{message}</span>}
+                        <div className='min-h-[10px] w-[330px] mx-auto m-1  bg-white border-[1px] p-1 border-black rounded-xl'>
+                            <span className='text-[12px] text-red-600'>{message}</span>
                         </div>
                         :
                         ''
