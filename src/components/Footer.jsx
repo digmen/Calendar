@@ -31,13 +31,18 @@ export default function Footer() {
         setInputs([...inputs, { thing: '', amount: '' }]);
     };
 
+    const handleRemoveInput = (index) => {
+        const newInputs = inputs.slice();
+        newInputs.splice(index, 1);
+        setInputs(newInputs);
+    };
+
     const handleInputChange = (index, event) => {
         const newInputs = inputs.slice();
         newInputs[index][event.target.name] = event.target.value;
         setInputs(newInputs);
         console.log(newInputs);
     };
-
 
     const handleSubmit = async () => {
         try {
@@ -79,11 +84,10 @@ export default function Footer() {
     return (
         <>
             {modal &&
-
-                <div className='h-full w-full  bg-[#00000099] absolute top-[0px]'>
-                    <div className='min-h-[30px] w-[330px]  mx-auto m-1 py-1'>
+                <div className='h-full w-full bg-[#00000099] absolute top-[0px]'>
+                    <div className='min-h-[30px] w-[330px] mx-auto m-1 py-1'>
                         {message ?
-                            <div className='flex justify-center bg-white border-[1px]  border-black rounded-md'>
+                            <div className='flex justify-center bg-white border-[1px] border-black rounded-md'>
                                 <span className='text-[12px] text-red-600'>{message}</span>
                             </div>
                             :
@@ -97,20 +101,20 @@ export default function Footer() {
                             </button>
                         </div>
                         <div className='flex justify-between mt-2'>
-                            <span >Вещь</span>
-                            <span >Сумма</span>
+                            <span>Вещь</span>
+                            <span>Сумма</span>
                         </div>
                         <div className='flex flex-col justify-between'>
                             <div className='mt-3'>
-                                <form className='flex flex-col gap-4  h-[280px] overflow-auto '>
+                                <form className='flex flex-col gap-4 h-[280px] overflow-auto'>
                                     {inputs.map((input, index) => (
-                                        <div key={index} className='flex justify-between'>
+                                        <div key={index} className='flex justify-between items-center'>
                                             <input
                                                 name='thing'
                                                 value={input.thing}
                                                 onChange={(e) => handleInputChange(index, e)}
                                                 placeholder='Текст'
-                                                className='flex max-w-[250px] border-gray-400 rounded-lg border-[1px] p-1 pl-2 transition shadow-inner focus:bg-black ease-in-out duration-500 focus:text-white focus:duration-500 focus:transition'
+                                                className='flex max-w-[200px] border-gray-400 rounded-lg border-[1px] p-1 pl-2 transition shadow-inner focus:bg-black ease-in-out duration-500 focus:text-white focus:duration-500 focus:transition'
                                             />
                                             <input
                                                 name='amount'
@@ -119,6 +123,9 @@ export default function Footer() {
                                                 placeholder='Текст'
                                                 className='max-w-[80px] border-gray-400 rounded-lg border-[1px] p-1 pl-2 transition shadow-inner focus:bg-black ease-in-out duration-500 focus:text-white focus:duration-500 focus:transition'
                                             />
+                                            <button type='button' onClick={() => handleRemoveInput(index)} className='text-red-600 text-2xl'>
+                                                &times;
+                                            </button>
                                         </div>
                                     ))}
                                     <button
@@ -134,7 +141,7 @@ export default function Footer() {
                                 <button
                                     type='button'
                                     onClick={handleSubmit}
-                                    className='active:bg-black active:transition ease-in-out transition focus:duration-1000 duration-1000 border-[2px] active:text-white text-black  px-4 py-2 rounded-2xl'
+                                    className='active:bg-black active:transition ease-in-out transition focus:duration-1000 duration-1000 border-[2px] active:text-white text-black px-4 py-2 rounded-2xl'
                                 >
                                     Добавить
                                 </button>
@@ -144,8 +151,8 @@ export default function Footer() {
                 </div>
             }
             <div className='h-[70px] w-full fixed bottom-[-10px]'>
-                <div className='flex  justify-center w-[100%] '>
-                    <div className='bg-[#000000] flex gap-[50px] items-center justify-center px-[20px] py-2   rounded-[40px] '>
+                <div className='flex justify-center w-[100%]'>
+                    <div className='bg-[#000000] flex gap-[50px] items-center justify-center px-[20px] py-2 rounded-[40px]'>
                         <div className='w-9 h-9 flex justify-center items-center'>
                             <Link to='/' className='flex justify-center items-center'>
                                 <img src={homeImg} alt='homeImg' />
