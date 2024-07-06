@@ -12,19 +12,22 @@ export default function AddListPage() {
     const [message, setMessage] = useState('');
     const userID = localStorage.getItem('id');
 
-    // const lastInputRef = useRef(null);
+    const lastInputRef = useRef(null);
+    const [shouldScroll, setShouldScroll] = useState(false);
 
     const handleAddInput = () => {
         if (inputs.length < 6) {
             setInputs([...inputs, { thing: '', amount: '' }]);
+            setShouldScroll(true);
         }
     };
 
-    // useEffect(() => {
-    //     if (lastInputRef.current) {
-    //         lastInputRef.current.scrollIntoView({ behavior: 'smooth' });
-    //     }
-    // }, [inputs]);
+    useEffect(() => {
+        if (shouldScroll && lastInputRef.current) {
+            lastInputRef.current.scrollIntoView({ behavior: 'smooth' });
+            setShouldScroll(false);
+        }
+    }, [inputs, shouldScroll]);
 
     const handleRemoveInput = (index) => {
         const newInputs = inputs.slice();
@@ -36,10 +39,6 @@ export default function AddListPage() {
         const newInputs = inputs.slice();
         newInputs[index][event.target.name] = event.target.value;
         setInputs(newInputs);
-    };
-
-    const handleFocus = (ref) => {
-        ref.current.scrollIntoView({ behavior: 'smooth' });
     };
 
     const handleSubmit = async () => {
@@ -99,15 +98,14 @@ export default function AddListPage() {
                     <span>Сумма</span>
                 </div>
                 <div className='flex flex-col justify-between'>
-                    <div className='mt-3'>
-                        <form className='flex flex-col gap-4'>
+                    <div className='mt-3 h-[300px] overflow-y-scroll'>
+                        <form className='flex flex-col gap-4 overflow-auto'>
                             {inputs.map((input, index) => (
                                 <div key={index} className='flex justify-between items-center'>
                                     <input
                                         name='thing'
                                         value={input.thing}
                                         onChange={(e) => handleInputChange(index, e)}
-                                        onFocus={() => handleFocus(lastInputRef)}
                                         placeholder='Вещь'
                                         className='flex max-w-[200px] border-gray-400 rounded-lg border-[1px] p-1 pl-2 transition shadow-inner focus:bg-black ease-in-out duration-500 focus:text-white focus:duration-500 focus:transition'
                                         ref={index === inputs.length - 1 ? lastInputRef : null}
@@ -116,7 +114,6 @@ export default function AddListPage() {
                                         name='amount'
                                         value={input.amount}
                                         onChange={(e) => handleInputChange(index, e)}
-                                        onFocus={() => handleFocus(lastInputRef)}
                                         placeholder='СОМ'
                                         className='max-w-[80px] border-gray-400 rounded-lg border-[1px] p-1 pl-2 transition shadow-inner focus:bg-black ease-in-out duration-500 focus:text-white focus:duration-500 focus:transition'
                                     />
