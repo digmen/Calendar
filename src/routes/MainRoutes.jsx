@@ -6,6 +6,7 @@ import NotFound from '../pages/notfound/NotFound'
 import ProfilePage from '../pages/profile/ProfilePage'
 import LoginPage from '../pages/login/LoginPage'
 import AddListPage from '../pages/add/AddListPage'
+import ListPage from '../pages/list/ListPage'
 
 export default function MainRoutes() {
     return (
@@ -16,6 +17,7 @@ export default function MainRoutes() {
                     <Route path='/profile' element={<ProfilePage />} />
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/add' element={<AddListPage />} />
+                    <Route path='/list' element={<ListPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Route>
             </Routes>

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import homeImg from '../assets/image/home.svg';
 import profileImg from '../assets/image/profile.svg';
 import addImg from '../assets/image/addimg.svg';
-import listImg from '../assets/image/listimg.svg';
 
 export default function Footer() {
     return (
@@ -22,8 +21,10 @@ export default function Footer() {
                         </Link>
                     </div>
                     <div className='w-9 h-9 flex justify-center items-center'>
-                        <Link to='/list' className='flex justify-center items-center'>
-                            <img src={listImg} alt='listImg' />
+                        <Link to='/list' className='flex flex-col gap-[10px] justify-center items-baseline'>
+                            <span className='bg-white min-h-[2px] max-h-[2px] w-[36px]'></span>
+                            <span className='bg-white min-h-[2px] max-h-[2px] w-[36px]'></span>
+                            <span className='bg-white min-h-[2px] max-h-[2px] w-[36px]'></span>
                         </Link>
                     </div>
                     <div className='w-9 h-9 flex justify-center items-center'>
