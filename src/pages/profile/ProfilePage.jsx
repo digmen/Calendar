@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '../../firebase';
@@ -12,6 +12,8 @@ export default function ProfilePage() {
     const [userData, setUserData] = useState([])
 
     const user = localStorage.getItem('id');  // Правильное использование localStorage.getItem
+
+    const navigate = useNavigate()
 
     const getUserData = async (user) => {
         try {
@@ -43,15 +45,20 @@ export default function ProfilePage() {
         }
     }, [user]);
 
+    const handleBtnLogOut = () => {
+        localStorage.clear()
+        navigate('/profile')
+    }
+
     return (
         <>
             {userCheck ?
                 <div className='p-5 flex flex-col justify-between h-[90vh]'>
                     <div className='flex flex-col justify-center items-center'>
                         <h1 className='text-2xl underline'>Имя</h1>
-                        <span>{userData.name}</span>
+                        <span className='text-6xl'>{userData.name}</span>
                     </div>
-                    <button className='bg-black text-white flex justify-center items-center gap-1 py-1 px-3  rounded-2xl'>
+                    <button onClick={handleBtnLogOut} className='bg-black text-white flex justify-center items-center gap-1 py-1 px-3  rounded-2xl'>
                         Выйти
                         <img className='w-7 h-7' src={logOut} alt='logOut' />
                     </button>
