@@ -71,7 +71,7 @@ export default function AddListPage() {
         }
     };
     return (
-        <div className='h-full w-full bg-[#00000099] absolute top-[0px]'>
+        <div className=''>
             <div className='min-h-[30px] w-[330px] mx-auto m-1 py-1'>
                 {message ?
                     <div className='flex justify-center bg-white border-[1px] border-black rounded-md'>
