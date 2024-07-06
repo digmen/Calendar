@@ -22,9 +22,18 @@ export default function Footer() {
                     </div>
                     <div className='w-9 h-9 flex justify-center items-center'>
                         <Link to='/list' className='flex flex-col gap-[10px] justify-center items-baseline'>
-                            <span className='bg-white min-h-[2px] max-h-[2px] w-[36px]'></span>
-                            <span className='bg-white min-h-[2px] max-h-[2px] w-[36px]'></span>
-                            <span className='bg-white min-h-[2px] max-h-[2px] w-[36px]'></span>
+                            <div className='flex gap-[4px]'>
+                                <span className='bg-white min-h-[2px] max-h-[2px] w-[2px] rounded-full'></span>
+                                <span className='bg-white min-h-[2px] max-h-[2px] w-[28px] rounded-sm'></span>
+                            </div>
+                            <div className='flex gap-[4px]'>
+                                <span className='bg-white min-h-[2px] max-h-[2px] w-[2px] rounded-full'></span>
+                                <span className='bg-white min-h-[2px] max-h-[2px] w-[28px] rounded-sm'></span>
+                            </div>
+                            <div className='flex gap-[4px]'>
+                                <span className='bg-white min-h-[2px] max-h-[2px] w-[2px] rounded-full'></span>
+                                <span className='bg-white min-h-[2px] max-h-[2px] w-[28px] rounded-sm'></span>
+                            </div>
                         </Link>
                     </div>
                     <div className='w-9 h-9 flex justify-center items-center'>
