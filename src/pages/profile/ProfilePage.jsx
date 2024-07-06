@@ -53,7 +53,7 @@ export default function ProfilePage() {
     return (
         <>
             {userCheck ?
-                <div className='p-5 flex flex-col justify-between h-[90vh]'>
+                <div className='p-5 flex flex-col gap-[20px]'>
                     <div className='flex flex-col justify-center items-center'>
                         <h1 className='text-2xl underline'>Имя</h1>
                         <span className='text-6xl'>{userData.name}</span>
