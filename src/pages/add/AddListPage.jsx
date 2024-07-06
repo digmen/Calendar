@@ -13,16 +13,21 @@ export default function AddListPage() {
     const userID = localStorage.getItem('id');
 
     const lastInputRef = useRef(null);
+    const [shouldScroll, setShouldScroll] = useState(false);
 
     const handleAddInput = () => {
-        setInputs([...inputs, { thing: '', amount: '' }]);
+        if (inputs.length < 6) {
+            setInputs([...inputs, { thing: '', amount: '' }]);
+            setShouldScroll(true);
+        }
     };
 
     useEffect(() => {
-        if (lastInputRef.current) {
+        if (shouldScroll && lastInputRef.current) {
             lastInputRef.current.scrollIntoView({ behavior: 'smooth' });
+            setShouldScroll(false);
         }
-    }, [inputs]);
+    }, [inputs, shouldScroll]);
 
     const handleRemoveInput = (index) => {
         const newInputs = inputs.slice();
@@ -93,8 +98,8 @@ export default function AddListPage() {
                     <span>Сумма</span>
                 </div>
                 <div className='flex flex-col justify-between'>
-                    <div className='mt-3 h-[300px]'>
-                        <form className='flex flex-col gap-4 h-[350px] overflow-auto'>
+                    <div className='mt-3 h-[300px] overflow-y-scroll'>
+                        <form className='flex flex-col gap-4 overflow-auto'>
                             {inputs.map((input, index) => (
                                 <div key={index} className='flex justify-between items-center'>
                                     <input
@@ -117,13 +122,15 @@ export default function AddListPage() {
                                     </button>
                                 </div>
                             ))}
-                            <button
-                                type='button'
-                                onClick={handleAddInput}
-                                className='bg-black text-white px-4 py-2 rounded-2xl'
-                            >
-                                Добавить еще поле +
-                            </button>
+                            {inputs.length < 6 && (
+                                <button
+                                    type='button'
+                                    onClick={handleAddInput}
+                                    className='bg-black text-white px-4 py-2 rounded-2xl'
+                                >
+                                    Добавить еще поле +
+                                </button>
+                            )}
                         </form>
                     </div>
                     <div className='flex justify-end mt-3 '>
