@@ -5,9 +5,9 @@ import { realtimeDb } from '../../firebase';
 import { ref, push } from "firebase/database";
 
 import closeImg from '../../assets/image/closeimg.svg';
+
 export default function AddListPage() {
     const navigate = useNavigate();
-
     const [inputs, setInputs] = useState([{ thing: '', amount: '' }]);
     const [message, setMessage] = useState('');
     const userID = localStorage.getItem('id');
@@ -34,6 +34,10 @@ export default function AddListPage() {
         const newInputs = inputs.slice();
         newInputs[index][event.target.name] = event.target.value;
         setInputs(newInputs);
+    };
+
+    const handleFocus = (ref) => {
+        ref.current.scrollIntoView({ behavior: 'smooth' });
     };
 
     const handleSubmit = async () => {
@@ -70,8 +74,9 @@ export default function AddListPage() {
             console.error('Error adding document: ', error);
         }
     };
+
     return (
-        <div className=''>
+        <div>
             <div className='min-h-[30px] w-[330px] mx-auto m-1 py-1'>
                 {message ?
                     <div className='flex justify-center bg-white border-[1px] border-black rounded-md'>
@@ -100,6 +105,7 @@ export default function AddListPage() {
                                         name='thing'
                                         value={input.thing}
                                         onChange={(e) => handleInputChange(index, e)}
+                                        onFocus={() => handleFocus(lastInputRef)}
                                         placeholder='Вещь'
                                         className='flex max-w-[200px] border-gray-400 rounded-lg border-[1px] p-1 pl-2 transition shadow-inner focus:bg-black ease-in-out duration-500 focus:text-white focus:duration-500 focus:transition'
                                         ref={index === inputs.length - 1 ? lastInputRef : null}
@@ -108,6 +114,7 @@ export default function AddListPage() {
                                         name='amount'
                                         value={input.amount}
                                         onChange={(e) => handleInputChange(index, e)}
+                                        onFocus={() => handleFocus(lastInputRef)}
                                         placeholder='СОМ'
                                         className='max-w-[80px] border-gray-400 rounded-lg border-[1px] p-1 pl-2 transition shadow-inner focus:bg-black ease-in-out duration-500 focus:text-white focus:duration-500 focus:transition'
                                     />
@@ -137,5 +144,5 @@ export default function AddListPage() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
