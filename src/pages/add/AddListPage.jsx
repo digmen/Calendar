@@ -77,20 +77,22 @@ export default function AddListPage() {
 
     return (
         <div>
-            <div className='min-h-[30px] w-[330px] mx-auto m-1 py-1'>
-                {message ?
-                    <div className='flex justify-center bg-white border-[1px] border-black rounded-md'>
-                        <span className='text-[12px] text-red-600'>{message}</span>
-                    </div>
-                    :
-                    ''
-                }
+
+            <div className='p-3 flex justify-end'>
+                <Link to='/'>
+                    <img className='w-[35px] h-[35px]' src={closeImg} alt='closeImg' />
+                </Link>
             </div>
-            <div className='p-3 w-[330px] h-[450px] mx-auto bg-white border-[2px] border-[#313131] rounded-xl'>
-                <div className='flex justify-end'>
-                    <Link to='/'>
-                        <img className='w-[35px] h-[35px]' src={closeImg} alt='closeImg' />
-                    </Link>
+            <div className='p-3'>
+                <div className='min-h-[30px] w-[330px] mx-auto m-1 py-1'>
+                    {message ?
+                        <div className='flex justify-center bg-white border-[1px] border-black rounded-md'>
+                            <span className='text-[12px] text-red-600'>{message}</span>
+                        </div>
+                        :
+                        ''
+                    }
+
                 </div>
                 <div className='flex justify-between'>
                     <span>Вещь</span>
