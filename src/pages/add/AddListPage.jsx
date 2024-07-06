@@ -15,7 +15,9 @@ export default function AddListPage() {
     const lastInputRef = useRef(null);
 
     const handleAddInput = () => {
-        setInputs([...inputs, { thing: '', amount: '' }]);
+        if (inputs.length < 6) {
+            setInputs([...inputs, { thing: '', amount: '' }]);
+        }
     };
 
     useEffect(() => {
@@ -77,7 +79,6 @@ export default function AddListPage() {
 
     return (
         <div>
-
             <div className='p-3 flex justify-end'>
                 <Link to='/'>
                     <img className='w-[35px] h-[35px]' src={closeImg} alt='closeImg' />
@@ -92,15 +93,14 @@ export default function AddListPage() {
                         :
                         ''
                     }
-
                 </div>
                 <div className='flex justify-between'>
                     <span>Вещь</span>
                     <span>Сумма</span>
                 </div>
                 <div className='flex flex-col justify-between'>
-                    <div className='mt-3 h-[300px] overflow-y-scroll'>
-                        <form className='flex flex-col gap-4 overflow-auto'>
+                    <div className='mt-3'>
+                        <form className='flex flex-col gap-4'>
                             {inputs.map((input, index) => (
                                 <div key={index} className='flex justify-between items-center'>
                                     <input
@@ -125,13 +125,15 @@ export default function AddListPage() {
                                     </button>
                                 </div>
                             ))}
-                            <button
-                                type='button'
-                                onClick={handleAddInput}
-                                className='bg-black text-white px-4 py-2 rounded-2xl'
-                            >
-                                Добавить еще поле +
-                            </button>
+                            {inputs.length < 6 && (
+                                <button
+                                    type='button'
+                                    onClick={handleAddInput}
+                                    className='bg-black text-white px-4 py-2 rounded-2xl'
+                                >
+                                    Добавить еще поле +
+                                </button>
+                            )}
                         </form>
                     </div>
                     <div className='flex justify-end mt-3 '>
