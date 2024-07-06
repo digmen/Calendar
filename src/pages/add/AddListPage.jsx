@@ -83,7 +83,7 @@ export default function AddListPage() {
                     <img className='w-[35px] h-[35px]' src={closeImg} alt='closeImg' />
                 </Link>
             </div>
-            <div className='p-3'>
+            <div className='px-3'>
                 <div className='min-h-[30px] w-[330px] mx-auto m-1 py-1'>
                     {message ?
                         <div className='flex justify-center bg-white border-[1px] border-black rounded-md'>
@@ -99,8 +99,8 @@ export default function AddListPage() {
                     <span>Сумма</span>
                 </div>
                 <div className='flex flex-col justify-between'>
-                    <div className='mt-3'>
-                        <form className='flex flex-col gap-4 h-[280px] overflow-auto'>
+                    <div className='mt-3 h-[300px] overflow-y-scroll'>
+                        <form className='flex flex-col gap-4 overflow-auto'>
                             {inputs.map((input, index) => (
                                 <div key={index} className='flex justify-between items-center'>
                                     <input
@@ -134,7 +134,7 @@ export default function AddListPage() {
                             </button>
                         </form>
                     </div>
-                    <div className='flex justify-end mt-3'>
+                    <div className='flex justify-end mt-3 '>
                         <button
                             type='button'
                             onClick={handleSubmit}
