@@ -12,7 +12,7 @@ export default function AddListPage() {
     const [message, setMessage] = useState('');
     const userID = localStorage.getItem('id');
 
-    const lastInputRef = useRef(null);
+    // const lastInputRef = useRef(null);
 
     const handleAddInput = () => {
         if (inputs.length < 6) {
@@ -20,11 +20,11 @@ export default function AddListPage() {
         }
     };
 
-    useEffect(() => {
-        if (lastInputRef.current) {
-            lastInputRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [inputs]);
+    // useEffect(() => {
+    //     if (lastInputRef.current) {
+    //         lastInputRef.current.scrollIntoView({ behavior: 'smooth' });
+    //     }
+    // }, [inputs]);
 
     const handleRemoveInput = (index) => {
         const newInputs = inputs.slice();
