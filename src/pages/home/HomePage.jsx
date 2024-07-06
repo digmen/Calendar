@@ -58,6 +58,20 @@ const customBarPlugin = {
 
 export default function HomePage() {
     const [items, setItems] = useState([]);
+    const [filter, setFilter] = useState('day');
+    const [totalExpense, setTotalExpense] = useState(0);
+    const [chartData, setChartData] = useState({
+        labels: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+        datasets: [
+            {
+                label: 'Расходы',
+                backgroundColor: '#FFFFFF',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderRadius: 10,
+                data: [0, 0, 0, 0, 0, 0, 0],
+            },
+        ],
+    });
     const userID = localStorage.getItem('id');
 
     useEffect(() => {
@@ -80,43 +94,118 @@ export default function HomePage() {
         return () => unsubscribe();
     }, [userID]);
 
-    useEffect(() => {
-        // Calculate expenses by day of the week
-        const expensesByDay = [0, 0, 0, 0, 0, 0, 0]; // Initialize array for each day of the week
+    const filterData = (items, filter) => {
+        switch (filter) {
+            case 'year':
+                return filterByYear(items);
+            case 'month':
+                return filterByMonth(items);
+            case 'week':
+                return filterByWeek(items);
+            case 'day':
+            default:
+                return filterByDay(items);
+        }
+    };
+
+    const filterByYear = (items) => {
+        const expensesByYear = {};
 
         items.forEach(item => {
-            // Calculate total expense for the item
+            const year = item.dateTime.year;
             const totalExpense = item.items.reduce((acc, thing) => acc + Number(thing.amount), 0);
 
-            // Get day of the week (0-6, where 0 is Sunday)
-            const dayOfWeek = new Date(item.dateTime.year, item.dateTime.month - 1, item.dateTime.day).getDay();
-
-            // Add total expense to the corresponding day in the array
-            expensesByDay[(dayOfWeek + 6) % 7] += totalExpense; // Adjusting so 0 (Sunday) maps to the last index
+            if (!expensesByYear[year]) {
+                expensesByYear[year] = 0;
+            }
+            expensesByYear[year] += totalExpense;
         });
 
-        // Update chart data
-        setChartData(prevChartData => ({
-            ...prevChartData,
-            datasets: [{
-                ...prevChartData.datasets[0],
-                data: expensesByDay,
-            }]
-        }));
-    }, [items]);
+        const labels = Object.keys(expensesByYear);
+        const data = Object.values(expensesByYear);
 
-    const [chartData, setChartData] = useState({
-        labels: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
-        datasets: [
-            {
+        return { labels, data };
+    };
+
+    const filterByMonth = (items) => {
+        const expensesByMonth = {};
+
+        items.forEach(item => {
+            const month = `${item.dateTime.year}-${item.dateTime.month}`;
+            const totalExpense = item.items.reduce((acc, thing) => acc + Number(thing.amount), 0);
+
+            if (!expensesByMonth[month]) {
+                expensesByMonth[month] = 0;
+            }
+            expensesByMonth[month] += totalExpense;
+        });
+
+        const labels = Object.keys(expensesByMonth);
+        const data = Object.values(expensesByMonth);
+
+        return { labels, data };
+    };
+
+    const filterByWeek = (items) => {
+        const expensesByWeek = {};
+
+        items.forEach(item => {
+            const year = item.dateTime.year;
+            const month = item.dateTime.month - 1;
+            const day = item.dateTime.day;
+            const currentDate = new Date(year, month, day);
+            const weekNumber = getWeekNumber(currentDate);
+
+            const totalExpense = item.items.reduce((acc, thing) => acc + Number(thing.amount), 0);
+
+            if (!expensesByWeek[weekNumber]) {
+                expensesByWeek[weekNumber] = 0;
+            }
+            expensesByWeek[weekNumber] += totalExpense;
+        });
+
+        const labels = Object.keys(expensesByWeek);
+        const data = Object.values(expensesByWeek);
+
+        return { labels, data };
+    };
+
+    const filterByDay = (items) => {
+        const expensesByDay = [0, 0, 0, 0, 0, 0, 0];
+
+        items.forEach(item => {
+            const totalExpense = item.items.reduce((acc, thing) => acc + Number(thing.amount), 0);
+            const dayOfWeek = new Date(item.dateTime.year, item.dateTime.month - 1, item.dateTime.day).getDay();
+            expensesByDay[(dayOfWeek + 6) % 7] += totalExpense;
+        });
+
+        const labels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+        return { labels, data: expensesByDay };
+    };
+
+    const getWeekNumber = (d) => {
+        d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+        const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+        return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    };
+
+    useEffect(() => {
+        const filteredData = filterData(items, filter);
+        setChartData({
+            labels: filteredData.labels,
+            datasets: [{
                 label: 'Расходы',
                 backgroundColor: '#FFFFFF',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderRadius: 10,
-                data: [0, 0, 0, 0, 0, 0, 0], // Initialize with zeros for each day of the week
-            },
-        ],
-    });
+                data: filteredData.data,
+            }]
+        });
+
+        const total = filteredData.data.reduce((acc, expense) => acc + expense, 0);
+        setTotalExpense(total);
+    }, [items, filter]);
 
     const options = {
         responsive: true,
@@ -128,7 +217,10 @@ export default function HomePage() {
             },
             title: {
                 display: true,
-                text: 'Еженедельные расходы',
+                text: filter === 'year' ? 'Годовые расходы' :
+                    filter === 'month' ? 'Месячные расходы' :
+                        filter === 'week' ? 'Недельные расходы' :
+                            'Дневные расходы',
             },
             tooltip: {
                 callbacks: {
@@ -143,7 +235,6 @@ export default function HomePage() {
         },
     };
 
-   
     return (
         <>
             <div className='mx-auto'>
@@ -152,6 +243,15 @@ export default function HomePage() {
                         <Bar data={chartData} options={options} width={400} height={400} />
                     </div>
                 </div>
+            </div>
+            <div className='flex justify-center mt-4'>
+                <button onClick={() => setFilter('day')} className='mx-2 px-4 py-2 bg-black text-white rounded'>День</button>
+                <button onClick={() => setFilter('week')} className='mx-2 px-4 py-2 bg-black text-white rounded'>Неделя</button>
+                <button onClick={() => setFilter('month')} className='mx-2 px-4 py-2 bg-black text-white rounded'>Месяц</button>
+                <button onClick={() => setFilter('year')} className='mx-2 px-4 py-2 bg-black text-white rounded'>Год</button>
+            </div>
+            <div className='flex justify-center mt-4'>
+                <span className=''>Общая сумма расходов: {totalExpense} СОМ</span>
             </div>
         </>
     );

@@ -98,8 +98,8 @@ export default function AddListPage() {
                     <span>Сумма</span>
                 </div>
                 <div className='flex flex-col justify-between'>
-                    <div className='mt-3 h-[300px] overflow-y-scroll'>
-                        <form className='flex flex-col gap-4 overflow-auto'>
+                    <div className='mt-3 h-[300px]'>
+                        <form className='flex flex-col gap-4'>
                             {inputs.map((input, index) => (
                                 <div key={index} className='flex justify-between items-center'>
                                     <input
